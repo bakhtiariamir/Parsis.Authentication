@@ -1,52 +1,44 @@
-﻿using Parsis.Authorization.Core.Contract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
+using Parsis.Authorization.Core.Contract;
+using Parsis.Authentication.Implement.Helper;
+using Parsis.Authentication.Implement.Model;
 
 namespace Parsis.Authentication.Implement.Manager
 {
-    public class AccessManager<TType> : IAccessManager<TType>
+    public abstract class AccessManager<TType> : IAccessManager<TType>
     {
-        public void Create()
+        public abstract Task Create();
+
+        public abstract Task EnsureLoaded();
+
+        public abstract Task<IAccess<TType>> Find(string predicate);
+
+        public abstract Task<IAccess<TType>> Find(TType id);
+
+        public abstract Task Save(IAccess<TType> entity);
+
+        public abstract Task Delete(IAccess<TType> entity);
+
+        public abstract Task Delete(TType id);
+        public abstract Task<IEnumerable<IAccess<TType>>> GetAll();
+
+        public async IAsyncEnumerable<IAccess<TType>> GetAll(string predicate)
         {
-            throw new NotImplementedException();
+            var isValidPredicate = await Task.Run(predicate.AccessPatternValid);
+            var accesses = await GetAll();
+            if (!isValidPredicate)
+                foreach (var access in accesses)
+                {
+                    if (access.Predicate.PredicateMatcher(predicate))
+                    {
+                        yield return access;
+                    }
+                }
         }
 
-        public void EnsureLoaded()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> IsMatch(string predicate) => (await GetAll()).Any(item => predicate.Equals(item.Predicate));
+        
+        public async Task<IAccessObject> Parse(string predicate) => (await IsMatch(predicate)) ? await Task.Run(predicate.AccessParser) : new AccessObject();
 
-        public IAccess<TType> Find(string predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IAccess<TType> Find(TType id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IAccess<TType>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<IAccess<TType>> GetAll(string predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TryParse(out IAccessObject accessObject)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

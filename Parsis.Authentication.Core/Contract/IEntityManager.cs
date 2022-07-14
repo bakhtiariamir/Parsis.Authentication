@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Parsis.Authorization.Core.Contract
+﻿namespace Parsis.Authorization.Core.Contract;
+public interface IEntityManager<TEntity, TObject, in TType> : IObjectManager<TEntity> where TEntity : IEntity<TType> where TObject : IObject
 {
-    public interface IEntityManager<TEntity, TType> : IObjectManager<TEntity> where TEntity : IEntity<TType>
-    {
-        IEnumerable<TEntity> GetAll();
+    Task<TEntity> Find(string predicate);
 
-        IEnumerable<TEntity> GetAll(string predicate);
+    Task<TEntity> Find(TType id);
 
-        TEntity Find(string predicate);
+    Task Save(TEntity entity);
 
-        TEntity Find(TType id);
+    Task Delete(TEntity entity);
 
-        bool TryParse(out IAccessObject accessObject);
-    }
+    Task Delete(TType id);
+
+    Task<IEnumerable<TEntity>> GetAll();
+
+    IAsyncEnumerable<TEntity> GetAll(string predicate);
+
+    Task<bool> IsMatch(string predicate);
+    Task<TObject> Parse(string predicate);
 }
