@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Parsis.Authorization.Core.Contract
 {
-    public interface IAccessObjectManager : IObjectManager<IAccessObject>
+    public interface IUserPermissionService : IObjectService<IUserPermission,  IExtendedPermission>
     {
     }
 }

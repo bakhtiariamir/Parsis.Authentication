@@ -1,20 +1,22 @@
 ﻿namespace Parsis.Authorization.Core.Contract;
 
-public interface IUserPermission<TType> : IEntity<TType>
+public interface IUserPermission : IObject
 {
     string UserName
     {
         get;
-    }    
+        set;
+    }
 
     string Permission
     {
         get;
+        set;
     }
 
-    IPermissionObject PermissionObject 
+    IExtendedPermission PermissionObject
     {
         get;
-        init;
+        set;
     }
 }

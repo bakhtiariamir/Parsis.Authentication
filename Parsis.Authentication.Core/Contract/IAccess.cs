@@ -2,17 +2,18 @@
 
 namespace Parsis.Authorization.Core.Contract;
 
-public interface IAccess<Tid> : IEntity<Tid>
+public interface IAccess : IObject
 {
     /// <summary>
     /// 
-    /// </summary>
+    /// </summary>s
     /// <Sample>
     /// EntryAdd
     /// </Sample>
     string Title
     {
         get;
+        set;
     }
 
     /// <summary>
@@ -24,11 +25,12 @@ public interface IAccess<Tid> : IEntity<Tid>
     string Predicate
     {
         get;
+        set;
     }
 
-    IEnumerable<IAccessObject> AccessObject
+    IEnumerable<IExtendedAccess> AccessObject
     {
         get;
-        init;
+        set;
     }
 }

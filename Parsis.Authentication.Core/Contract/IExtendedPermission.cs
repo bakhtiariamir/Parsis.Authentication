@@ -2,23 +2,17 @@
 
 namespace Parsis.Authorization.Core.Contract;
 
-public interface IAccessObject : IObject
+public interface IExtendedPermission : IExtendedObject
 {
     AccessLevel Level
     {
         get;
-        set;
     }
 
     string Path
     {
         get;
-        set;
     }
 
-    IEnumerable<IFieldAccess> FieldAccesses
-    {
-        get;
-        init;
-    }
+    IEnumerable<IFieldAccess> FieldAccesses { get; }
 }

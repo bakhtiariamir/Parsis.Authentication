@@ -7,9 +7,9 @@ namespace Parsis.Authentication.Implement.Helper;
 
 public static class AuthenticationParser
 {
-    public static IAccessObject AccessParser(this string accessPredicate)
+    public static IEnumerable<IExtendedAccess> AccessParser(this string accessPredicate)
     {
-        return new AccessObject();
+        yield break ;
     }
 
     public static bool AccessPatternValid(this string accessPredicate)
@@ -22,7 +22,7 @@ public static class AuthenticationParser
         return true;
     }
 
-    public static IPermissionObject PermissionParser(this  string permissionPredicate)
+    public static IExtendedPermission PermissionParser(this  string permissionPredicate)
     {
         return null;
     }

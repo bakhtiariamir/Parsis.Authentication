@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Parsis.Authentication.Implement.Base
 {
-    public class BaseEntity<TType> : BaseObject, IEntity<TType>
+    public class BaseObject : BaseExtendedObject, IObject
     {
-        public TType Id { get;  }
 
-        public BaseEntity(TType id) =>  Id = id;
     }
 
-    public class BaseObject : IObject
+    public class BaseExtendedObject : IExtendedObject
     {
 
     }

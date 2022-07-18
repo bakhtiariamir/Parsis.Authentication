@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Parsis.Authentication.Implement\Parsis.Authentication.Implement.csproj" />
+  </ItemGroup>
+
 </Project>

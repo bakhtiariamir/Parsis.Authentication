@@ -3,26 +3,23 @@ using Parsis.Authorization.Core.Contract;
 
 namespace Parsis.Authentication.Implement.Model;
 
-public class Access<TType> : BaseEntity<TType>, IAccess<TType>
+public class Access : BaseObject, IAccess
 {
     public string Title
     {
         get;
+        set;
     }
 
     public string Predicate
     {
         get;
+        set;
     }
 
-    public IEnumerable<IAccessObject> AccessObject
+    public IEnumerable<IExtendedAccess> AccessObject
     {
         get;
-        init;
-    }
-    public Access(TType id, string title, string predicate) : base(id)
-    {
-        Title = title;
-        Predicate = predicate;
+        set;
     }
 }

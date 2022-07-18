@@ -6,5 +6,7 @@ public interface IDataSource
     string Parameter { get; set; }
 
     MethodType MethodType { get; set; }
+
+    object Value { get; set; }
 }
 
